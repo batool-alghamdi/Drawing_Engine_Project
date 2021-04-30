@@ -6,7 +6,6 @@ C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\bin\Debug\net5.0-windows
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\bin\Debug\net5.0-windows\ref\DrawingEngine.dll
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\bin\Debug\net5.0-windows\DrawingEngine.pdb
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.csprojAssemblyReference.cache
-C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.Form1.resources
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.Properties.Resources.resources
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.csproj.GenerateResource.cache
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.GeneratedMSBuildEditorConfig.editorconfig
@@ -17,3 +16,4 @@ C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\ref\DrawingEngine.dll
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.pdb
 C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.genruntimeconfig.cache
+C:\Users\Reema\source\repos\DrawingEngine\DrawingEngine\obj\Debug\net5.0-windows\DrawingEngine.drawingEngine.resources

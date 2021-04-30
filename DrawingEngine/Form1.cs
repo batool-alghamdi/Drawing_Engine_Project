@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace DrawingEngine
 {
-    public partial class Form1 : Form
+    public partial class drawingEngine : Form
     {
-        public Form1()
+        public drawingEngine()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+       private void button1_Click(object sender, EventArgs e)
         {
 
         }
@@ -48,6 +48,11 @@ namespace DrawingEngine
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
         {
 
         }

@@ -1,7 +1,7 @@
 ﻿
 namespace DrawingEngine
 {
-    partial class Form1
+    partial class drawingEngine
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,12 +29,13 @@ namespace DrawingEngine
         /// </summary>
         private void InitializeComponent()
         {
-            this.straight = new System.Windows.Forms.Panel();
             this.rightTab = new System.Windows.Forms.Panel();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.openButton = new System.Windows.Forms.Button();
             this.penStyle = new System.Windows.Forms.GroupBox();
+            this.sizePicker = new System.Windows.Forms.NumericUpDown();
             this.colorButton = new System.Windows.Forms.Button();
             this.size = new System.Windows.Forms.Label();
-            this.sizePicker = new System.Windows.Forms.NumericUpDown();
             this.notDashedButton = new System.Windows.Forms.Button();
             this.dashedButton = new System.Windows.Forms.Button();
             this.Tools = new System.Windows.Forms.GroupBox();
@@ -44,25 +45,21 @@ namespace DrawingEngine
             this.CircleButton = new System.Windows.Forms.Button();
             this.RectangleButton = new System.Windows.Forms.Button();
             this.lineButton = new System.Windows.Forms.Button();
-            this.designButton = new System.Windows.Forms.Button();
-            this.sourceButton = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.openButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
+            this.tabs = new System.Windows.Forms.TabControl();
+            this.designTab = new System.Windows.Forms.TabPage();
+            this.sourceTab = new System.Windows.Forms.TabPage();
+            this.designPanel = new System.Windows.Forms.Panel();
+            this.sourceTextbox = new System.Windows.Forms.RichTextBox();
             this.rightTab.SuspendLayout();
             this.penStyle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sizePicker)).BeginInit();
             this.Tools.SuspendLayout();
             this.Shapes.SuspendLayout();
+            this.tabs.SuspendLayout();
+            this.designTab.SuspendLayout();
+            this.sourceTab.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // straight
-            // 
-            this.straight.Location = new System.Drawing.Point(32, 30);
-            this.straight.Name = "straight";
-            this.straight.Size = new System.Drawing.Size(1225, 823);
-            this.straight.TabIndex = 0;
-            this.straight.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // rightTab
             // 
@@ -76,11 +73,31 @@ namespace DrawingEngine
             this.rightTab.Size = new System.Drawing.Size(327, 872);
             this.rightTab.TabIndex = 1;
             // 
+            // saveButton
+            // 
+            this.saveButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.saveButton.Location = new System.Drawing.Point(171, 65);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(129, 57);
+            this.saveButton.TabIndex = 13;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = false;
+            // 
+            // openButton
+            // 
+            this.openButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.openButton.Location = new System.Drawing.Point(26, 65);
+            this.openButton.Name = "openButton";
+            this.openButton.Size = new System.Drawing.Size(129, 57);
+            this.openButton.TabIndex = 12;
+            this.openButton.Text = "Open";
+            this.openButton.UseVisualStyleBackColor = false;
+            // 
             // penStyle
             // 
+            this.penStyle.Controls.Add(this.sizePicker);
             this.penStyle.Controls.Add(this.colorButton);
             this.penStyle.Controls.Add(this.size);
-            this.penStyle.Controls.Add(this.sizePicker);
             this.penStyle.Controls.Add(this.notDashedButton);
             this.penStyle.Controls.Add(this.dashedButton);
             this.penStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -90,6 +107,29 @@ namespace DrawingEngine
             this.penStyle.TabIndex = 12;
             this.penStyle.TabStop = false;
             this.penStyle.Text = "Pen Style";
+            // 
+            // sizePicker
+            // 
+            this.sizePicker.Font = new System.Drawing.Font("Segoe UI", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.sizePicker.Location = new System.Drawing.Point(182, 83);
+            this.sizePicker.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.sizePicker.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.sizePicker.Name = "sizePicker";
+            this.sizePicker.Size = new System.Drawing.Size(67, 46);
+            this.sizePicker.TabIndex = 0;
+            this.sizePicker.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // colorButton
             // 
@@ -106,41 +146,18 @@ namespace DrawingEngine
             // 
             this.size.AutoSize = true;
             this.size.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.size.Location = new System.Drawing.Point(177, 50);
+            this.size.Location = new System.Drawing.Point(174, 50);
             this.size.Name = "size";
             this.size.Size = new System.Drawing.Size(50, 30);
             this.size.TabIndex = 0;
             this.size.Text = "Size";
             this.size.Click += new System.EventHandler(this.label1_Click);
             // 
-            // sizePicker
-            // 
-            this.sizePicker.Font = new System.Drawing.Font("Segoe UI", 10.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sizePicker.Location = new System.Drawing.Point(182, 83);
-            this.sizePicker.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.sizePicker.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.sizePicker.Name = "sizePicker";
-            this.sizePicker.Size = new System.Drawing.Size(65, 46);
-            this.sizePicker.TabIndex = 0;
-            this.sizePicker.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
             // notDashedButton
             // 
             this.notDashedButton.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.notDashedButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.notDashedButton.Location = new System.Drawing.Point(103, 77);
+            this.notDashedButton.Location = new System.Drawing.Point(103, 79);
             this.notDashedButton.Name = "notDashedButton";
             this.notDashedButton.Size = new System.Drawing.Size(65, 57);
             this.notDashedButton.TabIndex = 6;
@@ -151,7 +168,7 @@ namespace DrawingEngine
             // 
             this.dashedButton.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.dashedButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dashedButton.Location = new System.Drawing.Point(26, 77);
+            this.dashedButton.Location = new System.Drawing.Point(26, 79);
             this.dashedButton.Name = "dashedButton";
             this.dashedButton.Size = new System.Drawing.Size(65, 57);
             this.dashedButton.TabIndex = 5;
@@ -237,58 +254,65 @@ namespace DrawingEngine
             this.lineButton.Text = "╱";
             this.lineButton.UseVisualStyleBackColor = false;
             // 
-            // designButton
+            // tabs
             // 
-            this.designButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.designButton.Location = new System.Drawing.Point(31, 845);
-            this.designButton.Name = "designButton";
-            this.designButton.Size = new System.Drawing.Size(159, 57);
-            this.designButton.TabIndex = 10;
-            this.designButton.Text = "Design";
-            this.designButton.UseVisualStyleBackColor = false;
+            this.tabs.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabs.Controls.Add(this.designTab);
+            this.tabs.Controls.Add(this.sourceTab);
+            this.tabs.Location = new System.Drawing.Point(31, 30);
+            this.tabs.Name = "tabs";
+            this.tabs.SelectedIndex = 0;
+            this.tabs.Size = new System.Drawing.Size(1239, 872);
+            this.tabs.TabIndex = 0;
             // 
-            // sourceButton
+            // designTab
             // 
-            this.sourceButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.sourceButton.Location = new System.Drawing.Point(186, 845);
-            this.sourceButton.Name = "sourceButton";
-            this.sourceButton.Size = new System.Drawing.Size(159, 57);
-            this.sourceButton.TabIndex = 11;
-            this.sourceButton.Text = "Source";
-            this.sourceButton.UseVisualStyleBackColor = false;
+            this.designTab.Controls.Add(this.designPanel);
+            this.designTab.Location = new System.Drawing.Point(8, 8);
+            this.designTab.Name = "designTab";
+            this.designTab.Padding = new System.Windows.Forms.Padding(3);
+            this.designTab.Size = new System.Drawing.Size(1223, 818);
+            this.designTab.TabIndex = 0;
+            this.designTab.Text = "Design";
+            this.designTab.UseVisualStyleBackColor = true;
+            this.designTab.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // openButton
+            // sourceTab
             // 
-            this.openButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.openButton.Location = new System.Drawing.Point(26, 65);
-            this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(129, 57);
-            this.openButton.TabIndex = 12;
-            this.openButton.Text = "Open";
-            this.openButton.UseVisualStyleBackColor = false;
+            this.sourceTab.Controls.Add(this.sourceTextbox);
+            this.sourceTab.Location = new System.Drawing.Point(8, 8);
+            this.sourceTab.Name = "sourceTab";
+            this.sourceTab.Padding = new System.Windows.Forms.Padding(3);
+            this.sourceTab.Size = new System.Drawing.Size(1223, 818);
+            this.sourceTab.TabIndex = 1;
+            this.sourceTab.Text = "Source";
+            this.sourceTab.UseVisualStyleBackColor = true;
             // 
-            // saveButton
+            // designPanel
             // 
-            this.saveButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.saveButton.Location = new System.Drawing.Point(171, 65);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(129, 57);
-            this.saveButton.TabIndex = 13;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = false;
+            this.designPanel.Location = new System.Drawing.Point(3, 3);
+            this.designPanel.Name = "designPanel";
+            this.designPanel.Size = new System.Drawing.Size(1220, 812);
+            this.designPanel.TabIndex = 0;
             // 
-            // Form1
+            // sourceTextbox
+            // 
+            this.sourceTextbox.Location = new System.Drawing.Point(0, 3);
+            this.sourceTextbox.Name = "sourceTextbox";
+            this.sourceTextbox.Size = new System.Drawing.Size(1231, 815);
+            this.sourceTextbox.TabIndex = 0;
+            this.sourceTextbox.Text = "Source code will be shown here.";
+            // 
+            // drawingEngine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::DrawingEngine.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1628, 934);
+            this.Controls.Add(this.tabs);
             this.Controls.Add(this.rightTab);
-            this.Controls.Add(this.straight);
-            this.Controls.Add(this.designButton);
-            this.Controls.Add(this.sourceButton);
-            this.Name = "Form1";
+            this.Name = "drawingEngine";
             this.Text = "Form1";
             this.rightTab.ResumeLayout(false);
             this.penStyle.ResumeLayout(false);
@@ -296,13 +320,14 @@ namespace DrawingEngine
             ((System.ComponentModel.ISupportInitialize)(this.sizePicker)).EndInit();
             this.Tools.ResumeLayout(false);
             this.Shapes.ResumeLayout(false);
+            this.tabs.ResumeLayout(false);
+            this.designTab.ResumeLayout(false);
+            this.sourceTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel straight;
         private System.Windows.Forms.Panel rightTab;
         private System.Windows.Forms.GroupBox Shapes;
         private System.Windows.Forms.Button CircleButton;
@@ -310,18 +335,21 @@ namespace DrawingEngine
         private System.Windows.Forms.Button lineButton;
         private System.Windows.Forms.Button drawButton;
         private System.Windows.Forms.Button handButton;
-        private System.Windows.Forms.Button designButton;
-        private System.Windows.Forms.Button sourceButton;
         private System.Windows.Forms.GroupBox penStyle;
         private System.Windows.Forms.Button notDashedButton;
         private System.Windows.Forms.Button dashedButton;
         private System.Windows.Forms.GroupBox Tools;
         private System.Windows.Forms.Label size;
-        private System.Windows.Forms.NumericUpDown sizePicker;
         private System.Windows.Forms.Button colorButton;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button openButton;
+        private System.Windows.Forms.TabControl tabs;
+        private System.Windows.Forms.TabPage designTab;
+        private System.Windows.Forms.TabPage sourceTab;
+        private System.Windows.Forms.NumericUpDown sizePicker;
+        private System.Windows.Forms.Panel designPanel;
+        private System.Windows.Forms.RichTextBox sourceTextbox;
     }
 }
 
