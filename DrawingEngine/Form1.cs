@@ -15,6 +15,7 @@ namespace DrawingEngine
         public drawingEngine()
         {
             InitializeComponent();
+            tabs.SelectTab("designTab");
         }
 
        private void button1_Click(object sender, EventArgs e)
@@ -56,5 +57,7 @@ namespace DrawingEngine
         {
 
         }
+
+       
     }
 }

@@ -48,8 +48,8 @@ namespace DrawingEngine
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.tabs = new System.Windows.Forms.TabControl();
             this.designTab = new System.Windows.Forms.TabPage();
-            this.sourceTab = new System.Windows.Forms.TabPage();
             this.designPanel = new System.Windows.Forms.Panel();
+            this.sourceTab = new System.Windows.Forms.TabPage();
             this.sourceTextbox = new System.Windows.Forms.RichTextBox();
             this.rightTab.SuspendLayout();
             this.penStyle.SuspendLayout();
@@ -264,6 +264,7 @@ namespace DrawingEngine
             this.tabs.SelectedIndex = 0;
             this.tabs.Size = new System.Drawing.Size(1239, 872);
             this.tabs.TabIndex = 0;
+            
             // 
             // designTab
             // 
@@ -277,6 +278,13 @@ namespace DrawingEngine
             this.designTab.UseVisualStyleBackColor = true;
             this.designTab.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // designPanel
+            // 
+            this.designPanel.Location = new System.Drawing.Point(3, 3);
+            this.designPanel.Name = "designPanel";
+            this.designPanel.Size = new System.Drawing.Size(1220, 812);
+            this.designPanel.TabIndex = 0;
+            // 
             // sourceTab
             // 
             this.sourceTab.Controls.Add(this.sourceTextbox);
@@ -287,13 +295,6 @@ namespace DrawingEngine
             this.sourceTab.TabIndex = 1;
             this.sourceTab.Text = "Source";
             this.sourceTab.UseVisualStyleBackColor = true;
-            // 
-            // designPanel
-            // 
-            this.designPanel.Location = new System.Drawing.Point(3, 3);
-            this.designPanel.Name = "designPanel";
-            this.designPanel.Size = new System.Drawing.Size(1220, 812);
-            this.designPanel.TabIndex = 0;
             // 
             // sourceTextbox
             // 
