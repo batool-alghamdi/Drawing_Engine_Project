@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using System.Diagnostics;
 
 namespace DrawingEngine
 {
@@ -53,6 +53,18 @@ namespace DrawingEngine
         private void Form1_Load(object sender, EventArgs e)
         {
             fileDialog.Filter = "Text Files (.txt) | *.txt";
+        }
+
+        private void colorButton_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult;
+            dialogResult = colorDialog1.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                Debug.WriteLine(colorDialog1.Color.Name);
+                //this.penColor = colorDialog1.Color;
+                //this.pen.Color = this.penColor;
+            }
         }
     }
 }

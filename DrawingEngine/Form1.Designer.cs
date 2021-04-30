@@ -142,6 +142,7 @@ namespace DrawingEngine
             this.colorButton.TabIndex = 12;
             this.colorButton.Text = "Color";
             this.colorButton.UseVisualStyleBackColor = false;
+            this.colorButton.Click += new System.EventHandler(this.colorButton_Click);
             // 
             // size
             // 
