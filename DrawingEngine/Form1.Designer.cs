@@ -92,6 +92,7 @@ namespace DrawingEngine
             this.openButton.TabIndex = 12;
             this.openButton.Text = "Open";
             this.openButton.UseVisualStyleBackColor = false;
+            this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
             // penStyle
             // 
@@ -151,7 +152,6 @@ namespace DrawingEngine
             this.size.Size = new System.Drawing.Size(50, 30);
             this.size.TabIndex = 0;
             this.size.Text = "Size";
-            this.size.Click += new System.EventHandler(this.label1_Click);
             // 
             // notDashedButton
             // 
@@ -242,7 +242,6 @@ namespace DrawingEngine
             this.RectangleButton.TabIndex = 9;
             this.RectangleButton.Text = "▭";
             this.RectangleButton.UseVisualStyleBackColor = false;
-            this.RectangleButton.Click += new System.EventHandler(this.RectangleButton_Click);
             // 
             // lineButton
             // 
@@ -264,7 +263,6 @@ namespace DrawingEngine
             this.tabs.SelectedIndex = 0;
             this.tabs.Size = new System.Drawing.Size(1239, 872);
             this.tabs.TabIndex = 0;
-            
             // 
             // designTab
             // 
@@ -276,7 +274,6 @@ namespace DrawingEngine
             this.designTab.TabIndex = 0;
             this.designTab.Text = "Design";
             this.designTab.UseVisualStyleBackColor = true;
-            this.designTab.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // designPanel
             // 
