@@ -36,7 +36,7 @@ namespace DrawingEngine
 
         private void openButton_Click(object sender, EventArgs e)
         {
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            if (fileDialog.ShowDialog() == DialogResult.OK || Path.GetExtension(fileDialog.FileName).Equals(".drw"))
             {
                 StreamReader sr = new StreamReader(fileDialog.FileName);
                 while (line != null)
@@ -50,6 +50,10 @@ namespace DrawingEngine
 
                 }
                 sr.Close();
+            }
+            else
+            {
+                MessageBox.Show("Unrecognized File");
             }
         }
         private void Form1_Load(object sender, EventArgs e)
