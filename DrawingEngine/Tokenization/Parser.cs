@@ -17,7 +17,6 @@ namespace DrawingEngine.Tokenization
         private List<Shape> shapes;
         public Parser()
         {
-            
             this.shapes = new List<Shape>() { };
         }
 
@@ -188,6 +187,18 @@ namespace DrawingEngine.Tokenization
 
             //Debug.WriteLine("----------------------------------------");
             return null;
+        }
+
+        public StringBuilder getSourceCode(List<Shape> shapesList)
+        {
+            
+            StringBuilder sb = new StringBuilder();
+            
+            foreach (var shape in shapesList)
+            {
+                sb.Append($"{shape.type} {shape.start.X}, {shape.start.Y}, {shape.width}, {shape.height} {shape.pen.Color.Name} {shape.pen.DashStyle} \n");
+            }
+            return sb;
         }
 
         public static Color getColor(Token token)

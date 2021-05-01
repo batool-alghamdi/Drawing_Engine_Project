@@ -79,7 +79,7 @@ namespace DrawingEngine
         {
             public Circle()
             {
-                this.type = "circle";
+                this.type = "cir";
             }
             public override void draw(PaintEventArgs e)
             {
@@ -148,7 +148,7 @@ namespace DrawingEngine
         {
             public RectShape()
             {
-                this.type = "rectangle";
+                this.type = "rect";
             }
             public override void draw(PaintEventArgs e)
             {
@@ -200,7 +200,7 @@ namespace DrawingEngine
 
         private void openButton_Click(object sender, EventArgs e)
         {
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            if (fileDialog.ShowDialog() == DialogResult.OK || Path.GetExtension(fileDialog.FileName).Equals(".drw"))
             {
                 StreamReader sr = new StreamReader(fileDialog.FileName);
                 while (line != null)
@@ -214,6 +214,10 @@ namespace DrawingEngine
 
                 }
                 sr.Close();
+            }
+            else
+            {
+                MessageBox.Show("Unrecognized File");
             }
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -238,7 +242,7 @@ namespace DrawingEngine
 
         private void CircleButton_Click(object sender, EventArgs e)
         {
-            this.shapeName = "circle";
+            this.shapeName = "cir";
         }
 
         private void lineButton_Click(object sender, EventArgs e)
@@ -248,7 +252,7 @@ namespace DrawingEngine
 
         private void RectangleButton_Click(object sender, EventArgs e)
         {
-            this.shapeName = "rectangle";
+            this.shapeName = "rect";
         }
 
         private void handButton_Click(object sender, EventArgs e)
@@ -272,11 +276,12 @@ namespace DrawingEngine
             {
                 this.pen.DashStyle = DashStyle.Dash;
                 this.solidStyle = !this.solidStyle; //dashed
-                if (this.selectedShapeIndex != -1)
-                {
-                    this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
-                    this.Refresh();
-                }
+ 
+            }
+            if (this.selectedShapeIndex != -1)
+            {
+                this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
+                this.Refresh();
             }
         }
 
@@ -286,11 +291,11 @@ namespace DrawingEngine
             {
                 this.pen.DashStyle = DashStyle.Solid;
                 this.solidStyle = !this.solidStyle; //solid
-                if (this.selectedShapeIndex != -1)
-                {
-                    this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
-                    this.Refresh();
-                }
+            }
+            if (this.selectedShapeIndex != -1)
+            {
+                this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
+                this.Refresh();
             }
         }
 
@@ -345,11 +350,11 @@ namespace DrawingEngine
                         this.currentShape = new LineShape();
                         this.currentShape.type = this.shapeName;
                         break;
-                    case "rectangle":
+                    case "rect":
                         this.currentShape = new RectShape();
                         this.currentShape.type = this.shapeName;
                         break;
-                    case "circle":
+                    case "cir":
                         this.currentShape = new Circle();
                         this.currentShape.type = this.shapeName;
                         break;
@@ -580,8 +585,6 @@ namespace DrawingEngine
                 sb.Clear();
                 sb.Append(sourceTextbox.Text);
 
-
-
                 //tokenize sb
                 parser = new Parser();
                 this.shapes = parser.ParseSourceCode(sb.ToString());
@@ -589,41 +592,6 @@ namespace DrawingEngine
                 {
                     Debug.WriteLine($"shape: {shape.type} x: {shape.start.X} y: {shape.start.Y} w: {shape.width} h: {shape.height} color: {shape.pen.Color.Name}");
                 }
-            //    Tokenizer t = new Tokenizer(new Input(sb.ToString()), new Tokenizable[]
-            //{
-            //            //new ShapeHandler(),
-            //            new ColorHandler(),
-            //            new StringTokenizer(),
-            //            new WhiteSpaceHandler(),
-            //            new SpecialCharacterHandler(),
-            //            new NumberHandler()
-
-
-            //    });
-
-            //    Token token = t.tokenize();
-            //    while (token != null)
-            //    {
-            //        Debug.WriteLine($"value: {token.Value}        type: {token.Type}");
-            //        token = t.tokenize();
-            //    }
-                //    Tokenizer t = new Tokenizer(new Input(sb.ToString()), new Tokenizable[]
-                //{
-                //    //new ShapeHandler(),
-                //    new ColorHandler(),
-                //    new StringTokenizer(),
-                //    new WhiteSpaceHandler(),
-                //    new SpecialCharacterHandler(),
-                //    new NumberHandler()
-
-                //});
-                ////parser = new Parser(t);
-                //Shape s = parser.ParseLine();
-                //Debug.WriteLine(s.start.X);
-                //Debug.WriteLine(s.start.Y);
-                //Debug.WriteLine(s.height);
-                //Debug.WriteLine(s.width);
-                //Debug.WriteLine(s.pen.Color.Name);
                 Debug.WriteLine("----------------------------------------");
             }
         }
@@ -648,6 +616,26 @@ namespace DrawingEngine
                 
                 
             }
+
+        private void tabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.parser = new Parser();
+            this.sb = parser.getSourceCode(this.shapes);
+            sourceTextbox.Text = this.sb.ToString();
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog browser1 = new OpenFileDialog();
+            SaveFileDialog saver = new SaveFileDialog();
+            DialogResult LocRes = saver.ShowDialog();
+            if (LocRes == DialogResult.OK)
+            {
+                System.IO.File.WriteAllText(saver.FileName + ".drw", sourceTextbox.Text);
+                MessageBox.Show("File saved");
+                sourceTextbox.Clear();
+            }
+        }
+    }
 
 }
