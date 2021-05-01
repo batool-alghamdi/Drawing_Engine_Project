@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DrawingEngine.Tokenizer
+namespace DrawingEngine.Tokenization
 {
     public delegate bool InputCondition(Input input);
     public class Input
@@ -107,60 +107,6 @@ namespace DrawingEngine.Tokenizer
             while (hasMore() && condition(this))
                 buffer += step().Character;
             return buffer;
-        }
-    }
-    public class Token
-    {
-        public int Position { set; get; }
-        public int LineNumber { set; get; }
-        public TokenType Type { set; get; }
-        public string Value { set; get; }
-        public Token(int position, int lineNumber, TokenType type, string value)
-        {
-            Position = position;
-            LineNumber = lineNumber;
-            Type = type;
-            Value = value;
-        }
-    }
-
-    public enum TokenType
-    {
-        Shape,
-        Number,
-        Color,
-        PenStyle,
-        PenWidth,
-        Whitespace,
-        Comma,
-        None
-    }
-
-    public abstract class Tokenizable
-    {
-        public abstract bool tokenizable(Tokenizer tokenizer);
-        public abstract Token tokenize(Tokenizer tokenizer);
-    }
-    public class Tokenizer
-    {
-        public Input input;
-        public Tokenizable[] handlers;
-        public Tokenizer(string source, Tokenizable[] handlers)
-        {
-            input = new Input(source);
-            this.handlers = handlers;
-        }
-        public Tokenizer(Input source, Tokenizable[] handlers)
-        {
-            input = source;
-            this.handlers = handlers;
-        }
-        public Token tokenize()
-        {
-
-            foreach (var handler in handlers)
-                if (handler.tokenizable(this)) return handler.tokenize(this);
-            return null;
         }
     }
 }

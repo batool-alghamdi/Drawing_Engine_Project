@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DrawingEngine.Tokenizer.Handlers
+namespace DrawingEngine.Tokenization.Handlers
 {
     public class WhiteSpaceHandler : Tokenizable
     {
@@ -13,6 +13,8 @@ namespace DrawingEngine.Tokenizer.Handlers
             char currentCharacter = t.input.peek();
             return Char.IsWhiteSpace(currentCharacter);
         }
+
+        // rect 10,10,100,100
 
         static bool IsSpace(Input input)
         {
