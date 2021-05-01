@@ -8,9 +8,9 @@ Simple drawing engine made in C# using GDI+ library
 - Maryam Alraddadi
 
 ## Features 
-- Draw, resize, drag shapes.
+- Draw, resize, and drag shapes.
 - Change pen settings.
-- Change shapes style.
-- Draw by mouse and by source code.
-- Save drawing canvas as source code with the extension (.drw) and opens .drw files and renders it in the canves.
+- Change shapes' style.
+- Draw by mouse, and by source code.
+- Save drawing canvas as source code with the extension (.drw), and open .drw files and render them in the canves.
 - Clear the canvas.
