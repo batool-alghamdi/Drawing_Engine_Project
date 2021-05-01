@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,15 +25,18 @@ namespace DrawingEngine.Tokenization.Handlers
 
         public override Token tokenize(Tokenizer t)
         {
-            Token token = new Token(t.input.Position, t.input.LineNumber,
-                TokenType.Whitespace, "");
-            InputCondition[] i = { IsSpace };
-            foreach (var conditon in i)
+            string value = t.input.loop(IsSpace);
+            Debug.WriteLine(Environment.NewLine);
+            //value.Equals(Environment.NewLine)
+            if (value.Equals("\n"))
             {
-                token.Value += t.input.loop(conditon);
+                return new Token(t.input.Position, t.input.LineNumber,
+                TokenType.NewLine, value);
+            } else
+            {
+                return new Token(t.input.Position, t.input.LineNumber,
+                TokenType.Whitespace, value);
             }
-
-            return token;
         }
     }
 }

@@ -30,6 +30,7 @@ namespace DrawingEngine.Tokenization
         NamedColor,
         PenStyle,
         PenWidth,
+        NewLine,
         UnexpectedToken,
         Whitespace,
         Comma,
