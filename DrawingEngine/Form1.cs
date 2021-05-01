@@ -23,12 +23,10 @@ namespace DrawingEngine
     }
     public partial class drawingEngine : Form
     {
+        /// <summary>
+        /// Program fields
+        /// </summary>
 
-        OpenFileDialog fileDialog = new OpenFileDialog();
-        string line = "";
-        StringBuilder sb = new StringBuilder();
-
-        private ShapeType shapeType;
         private string shapeName = "line";
         private bool solidStyle = true;
         private bool drawMood = true;
@@ -45,8 +43,8 @@ namespace DrawingEngine
         private bool isClicked = false;
         private List<Shape> shapes = new List<Shape> { };
         Pen pen;
-
-        Parser parser;
+        OpenFileDialog fileDialog = new OpenFileDialog();
+        string line = "";
 
         /// <summary>
         /// Shape Class and it's childredn
@@ -174,6 +172,7 @@ namespace DrawingEngine
         public drawingEngine()
         {
             InitializeComponent();
+            this.pen = new Pen(Color.Black, this.fontSize);
             tabs.SelectTab("designTab");
         }
 
@@ -216,6 +215,360 @@ namespace DrawingEngine
             Color pickedColor = colorDialog1.Color;
             if (dialogResult == DialogResult.OK)
             {
+                Debug.WriteLine(colorDialog1.Color.Name);
+                this.pen.Color = colorDialog1.Color;
+                if (this.selectedShapeIndex != -1)
+                {
+                    this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
+                    this.Refresh();
+                }
+            }
+        }
+
+        private void CircleButton_Click(object sender, EventArgs e)
+        {
+            this.shapeName = "circle";
+        }
+
+        private void lineButton_Click(object sender, EventArgs e)
+        {
+            this.shapeName = "line";
+        }
+
+        private void RectangleButton_Click(object sender, EventArgs e)
+        {
+            this.shapeName = "rectangle";
+        }
+
+        private void handButton_Click(object sender, EventArgs e)
+        {
+            if (this.drawMood) //select mood
+            {
+                this.drawMood = false;
+                this.selectedShapeIndex = -1;
+
+            } 
+        }
+
+        private void drawButton_Click(object sender, EventArgs e)
+        {
+            if (!this.drawMood) this.drawMood = true; //draw mood
+        }
+
+        private void dashedButton_Click(object sender, EventArgs e)
+        {
+            if (this.solidStyle)
+            {
+                this.pen.DashStyle = DashStyle.Dash;
+                this.solidStyle = !this.solidStyle; //dashed
+                if (this.selectedShapeIndex != -1)
+                {
+                    this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
+                    this.Refresh();
+                }
+            }
+        }
+
+        private void notDashedButton_Click(object sender, EventArgs e)
+        {
+            if (!this.solidStyle)
+            {
+                this.pen.DashStyle = DashStyle.Solid;
+                this.solidStyle = !this.solidStyle; //solid
+                if (this.selectedShapeIndex != -1)
+                {
+                    this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
+                    this.Refresh();
+                }
+            }
+        }
+
+        private void sizePicker_ValueChanged(object sender, EventArgs e)
+        {
+            this.fontSize = Convert.ToInt32(Math.Round(sizePicker.Value, 0)); //get the size
+            this.pen.Width = this.fontSize;
+            if (this.selectedShapeIndex != -1)
+            {
+                this.shapes[this.selectedShapeIndex].pen = (Pen)this.pen.Clone();
+                this.Refresh();
+            }
+        }
+
+        private void designPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!this.drawMood)
+            {
+                foreach (var shape in shapes)
+                {
+
+
+                    if (shape.checkSelectedShape(e))
+                    {
+                        this.selectedShapeIndex = this.shapes.IndexOf(shape);
+                        break;
+                    }
+                    else
+                    {
+                        this.selectedShapeIndex = -1;
+
+                    }
+
+
+                }
+                this.Refresh();
+            }
+
+
+        }
+
+        private void designPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.drawMood)
+            {
+                this.isDrawing = !this.isDrawing; //true
+
+
+                switch (this.shapeName)
+                {
+                    case "line":
+                        this.currentShape = new LineShape();
+                        this.currentShape.type = this.shapeName;
+                        break;
+                    case "rectangle":
+                        this.currentShape = new RectShape();
+                        this.currentShape.type = this.shapeName;
+                        break;
+                    case "circle":
+                        this.currentShape = new Circle();
+                        this.currentShape.type = this.shapeName;
+                        break;
+                }
+                this.currentShape.start = e.Location;
+                this.currentShape.end = e.Location;
+                this.currentShape.pen = (Pen)this.pen.Clone();
+
+            }
+            else
+            {
+                if (this.selectedShapeIndex != -1)
+                {
+                    if (this.shapes[selectedShapeIndex].checkSelectedShape(e))
+                    {
+                        if (!this.shapes[selectedShapeIndex].type.Equals("line"))
+                        {
+                            if (this.shapes[selectedShapeIndex].checkSelectedSBoundry(e, this.shapes[selectedShapeIndex].left))
+                            {
+                                this.resizeLeft = true;
+                            }
+                            else if (this.shapes[selectedShapeIndex].checkSelectedSBoundry(e, this.shapes[selectedShapeIndex].top))
+                            {
+                                this.resizeTop = true;
+                            }
+                            else if (this.shapes[selectedShapeIndex].checkSelectedSBoundry(e, this.shapes[selectedShapeIndex].right))
+                            {
+                                this.resizeRight = true;
+                            }
+                            else if (this.shapes[selectedShapeIndex].checkSelectedSBoundry(e, this.shapes[selectedShapeIndex].bottom))
+                            {
+                                this.resizeBottom = true;
+                            }
+
+                        }
+                        else
+                        {
+                            if (this.shapes[selectedShapeIndex].checkSelectedSBoundry(e, this.shapes[selectedShapeIndex].left))
+                            {
+                                this.resizeLeft = true;
+                            }
+                            else if (this.shapes[selectedShapeIndex].checkSelectedSBoundry(e, this.shapes[selectedShapeIndex].right))
+                            {
+                                this.resizeRight = true;
+                            }
+
+                        }
+
+
+                        this.delta = e.Location;
+                        this.delta.X = e.X - this.shapes[selectedShapeIndex].start.X;
+                        this.delta.Y = e.Y - this.shapes[selectedShapeIndex].start.Y;
+                        this.isClicked = true;
+
+                    }
+                    else
+                    {
+                        this.selectedShapeIndex = -1;
+                    }
+
+                    this.Refresh();
+                }
+
+
+            }
+
+
+
+        }
+
+        private void designPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this.isDrawing && this.drawMood)
+            {
+
+                if (this.currentShapeIndex == -1)
+                {
+                    this.currentShape.end = e.Location;  //get the current location 
+                    if (!this.currentShape.type.Equals("line"))
+                    {
+                        this.currentShape.width = this.currentShape.end.X - this.currentShape.start.X;
+                        this.currentShape.height = this.currentShape.end.Y - this.currentShape.start.Y;
+                    }
+                    this.shapes.Add(this.currentShape);
+                    this.currentShapeIndex = this.shapes.IndexOf(this.currentShape);
+
+                    Debug.WriteLine(this.currentShapeIndex);
+                }
+                else
+                {
+                    this.shapes[currentShapeIndex].end = e.Location;
+                    if (!this.shapes[currentShapeIndex].type.Equals("line"))
+                    {
+                        this.shapes[currentShapeIndex].width = this.shapes[currentShapeIndex].end.X - this.shapes[currentShapeIndex].start.X;
+                        this.shapes[currentShapeIndex].height = this.shapes[currentShapeIndex].end.Y - this.shapes[currentShapeIndex].start.Y;
+                    }
+                }
+                Refresh(); // refresh the form
+            }
+            else if (!this.drawMood)
+            {
+                if (this.selectedShapeIndex != -1 && this.isClicked)
+                {
+                    if (this.resizeRight)
+                    {
+                        if (!this.shapes[selectedShapeIndex].type.Equals("line"))
+                        {
+                            this.shapes[selectedShapeIndex].width = e.Location.X - this.shapes[selectedShapeIndex].start.X;
+                        }
+
+                        else
+                        {
+                            this.shapes[selectedShapeIndex].end.X = e.Location.X;
+                            this.shapes[selectedShapeIndex].end.Y = e.Location.Y;
+                        }
+
+                    }
+                    else if (this.resizeLeft)
+                    {
+                        if (!this.shapes[selectedShapeIndex].type.Equals("line"))
+                        {
+                            this.shapes[selectedShapeIndex].width -= e.Location.X - this.shapes[selectedShapeIndex].start.X;
+                            this.shapes[selectedShapeIndex].start.X = e.Location.X;
+                        }
+                        else
+                        {
+                            this.shapes[selectedShapeIndex].start.X = e.Location.X;
+                            this.shapes[selectedShapeIndex].start.Y = e.Location.Y;
+                            this.delta = e.Location;
+                            this.delta.X = e.X - this.shapes[selectedShapeIndex].start.X;
+                            this.delta.Y = e.Y - this.shapes[selectedShapeIndex].start.Y;
+
+                        }
+
+                    }
+                    else if (this.resizeTop)
+                    {
+                        this.shapes[selectedShapeIndex].height -= e.Location.Y - this.shapes[selectedShapeIndex].start.Y;
+                        this.shapes[selectedShapeIndex].start.Y = e.Location.Y;
+
+                    }
+                    else if (this.resizeBottom)
+                    {
+                        this.shapes[selectedShapeIndex].height = e.Location.Y - this.shapes[selectedShapeIndex].start.Y;
+
+                    }
+                    else
+                    {
+                        this.shapes[selectedShapeIndex].start.X = e.Location.X - this.delta.X;
+                        this.shapes[selectedShapeIndex].start.Y = e.Location.Y - this.delta.Y;
+                        if (this.shapes[selectedShapeIndex].type.Equals("line"))
+                        {
+                            this.shapes[selectedShapeIndex].end.X = e.Location.X + this.delta.X;
+                            this.shapes[selectedShapeIndex].end.Y = e.Location.Y + this.delta.Y;
+                        }
+
+                    }
+                    Refresh(); // refresh the form
+                }
+            }
+           
+
+
+        }
+
+        private void designPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.isDrawing && this.drawMood)
+            {
+                if (this.currentShapeIndex != -1)
+                {
+                    this.isDrawing = !this.isDrawing; //make it false and wait for new point entry
+                    this.shapes[currentShapeIndex].end = e.Location; // get the ending location of x and y 
+                    if (!this.shapes[currentShapeIndex].type.Equals("line"))
+                    {
+                        this.shapes[currentShapeIndex].width = this.shapes[currentShapeIndex].end.X - this.shapes[currentShapeIndex].start.X;
+                        this.shapes[currentShapeIndex].height = this.shapes[currentShapeIndex].end.Y - this.shapes[currentShapeIndex].start.Y;
+                    }
+                    this.shapes[currentShapeIndex].pen = (Pen)this.pen.Clone();
+                    this.currentShapeIndex = -1;
+                    this.currentShape = null;
+
+                    Refresh();
+
+                }
+
+
+            }
+            else
+            {
+                if (this.isClicked)
+                {
+                    this.selectedShapeIndex = -1;
+                    this.resizeRight = false;
+                    this.resizeLeft = false;
+                    this.resizeBottom = false;
+                    this.resizeTop = false;
+                    this.isClicked = false;
+                    Refresh();
+                }
+            }
+            
+
+
+        }
+
+        private void designPanel_Paint(object sender, PaintEventArgs e)
+        {
+            foreach (var shape in shapes)
+            {
+                shape.draw(e);
+            }
+            if (this.selectedShapeIndex != -1)
+            {
+                shapes[this.selectedShapeIndex].drawBoundaries(e);
+            }
+        }
+
+        private void clear_Button_Click(object sender, EventArgs e)
+        {
+            shapes = new List<Shape> { };
+            this.currentShapeIndex = -1;
+            this.currentShape = null;
+            this.selectedShapeIndex = -1;
+            this.resizeRight = false;
+            this.resizeLeft = false;
+            this.resizeBottom = false;
+            this.resizeTop = false;
+            this.isClicked = false;
+            this.Refresh();
                 
                 if (pickedColor.IsNamedColor)
                 {
