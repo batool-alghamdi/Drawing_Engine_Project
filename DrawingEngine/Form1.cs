@@ -9,22 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-
 namespace DrawingEngine
 {
     public partial class drawingEngine : Form
     {
         OpenFileDialog fileDialog = new OpenFileDialog();
         string line = "";
+        String path = @"c:\Desktop\Projects\SourceCode.drw";
         public drawingEngine()
         {
             InitializeComponent();
             tabs.SelectTab("designTab");
         }
 
-     
 
-    
+
+
 
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -52,7 +52,23 @@ namespace DrawingEngine
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            fileDialog.Filter = "Text Files (.txt) | *.txt";
+            fileDialog.Filter = "Text Files (.drw) | *.drw";
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+           // File.WriteAllText(fileDialog.FileName, sourceTextbox.Text);
+           OpenFileDialog browser1 = new OpenFileDialog();
+            SaveFileDialog saver = new SaveFileDialog();
+            DialogResult LocRes = saver.ShowDialog();
+            if (LocRes == DialogResult.OK)
+            {
+                System.IO.File.WriteAllText(saver.FileName + ".drw", sourceTextbox.Text);
+                MessageBox.Show("File saved");
+                sourceTextbox.Clear();
+            }
+        }
+        
     }
 }
+
