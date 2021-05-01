@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+<<<<<<< HEAD
+=======
+using System.Diagnostics;
+>>>>>>> e5d5a71301304aec693ae93b3f9ecc15383f67d7
 
 namespace DrawingEngine
 {
@@ -55,6 +59,7 @@ namespace DrawingEngine
             fileDialog.Filter = "Text Files (.drw) | *.drw";
         }
 
+<<<<<<< HEAD
         private void saveButton_Click(object sender, EventArgs e)
         {
            // File.WriteAllText(fileDialog.FileName, sourceTextbox.Text);
@@ -69,6 +74,19 @@ namespace DrawingEngine
             }
         }
         
+=======
+        private void colorButton_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult;
+            dialogResult = colorDialog1.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                Debug.WriteLine(colorDialog1.Color.Name);
+                //this.penColor = colorDialog1.Color;
+                //this.pen.Color = this.penColor;
+            }
+        }
+>>>>>>> e5d5a71301304aec693ae93b3f9ecc15383f67d7
     }
 }
 
