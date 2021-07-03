@@ -13,8 +13,8 @@ Simple drawing engine made in C# using GDI+ library
 
 ## Demo
 
-<img src="
-https://user-images.githubusercontent.com/82464731/124358003-ebed5680-dc26-11eb-99a1-f8f4fa27c4dd.mov" alt="drawing" width="500"/>
+<img src="![Uploading ezgif.com-gif-maker.gif…]()alt="drawing" width="500"/
+
 
 
 
